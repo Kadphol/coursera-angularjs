@@ -5,17 +5,21 @@
 
   LunchCheckController.$inject = ['$scope'];
   function LunchCheckController($scope) {
-    $scope.lunch = "";
     $scope.message = "";
 
     $scope.check = function() {
-      var count = $scope.lunch.split(',').length;
-      if(count == 1) {
-        if($scope.lunch.split(',')[0] == "") $scope.message = "Please enter data first";
-        else $scope.message = "Enjoy!";
+      var item = $scope.lunch;
+      if(item == '' || item == undefined) {
+        $scope.message = "Please enter data first";
+        $scope.color = "red";
+        return;
       }
-      else if(count > 3) $scope.message = "Too much!";
-      else $scope.message = "Enjoy!";
+      var count = $scope.lunch.split(',').filter((v) => {return v.trim()!== ""}).length;
+      if(count <= 3) {
+        $scope.message = "Enjoy!";
+      }
+      else $scope.message = "Too much!";
+      $scope.color = "green";
     }
   }
 })();
