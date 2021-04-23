@@ -3,33 +3,31 @@
   angular.module('CounterApp', [])
   .controller('CounterController', CounterController);
   
-  CounterController.$inject = ['$scope'];
-  function CounterController($scope) {
-    $scope.onceCounter = 0;
+  CounterController.$inject = ['$scope', '$timeout'];
+  function CounterController($scope, $timeout) {
     $scope.counter = 0;
-    $scope.name = "hello";
-    $scope.showNumberOfWatchers = function () {
-      console.log("# of Watchers: ", $scope.$$watchersCount); 
-    };
-
-    $scope.countOnce = function () {
-      $scope.onceCounter = 1;
-    };
 
     $scope.upCounter = function () {
-      $scope.counter++;
+      $timeout(function () {
+        $scope.counter++;
+        console.log('Counter Incremented');
+      }, 2000);
     };
+    // $scope.upCounter = function () {
+    //   setTimeout(function () {
+    //     $scope.$apply(function () {
+    //       $scope.counter++;
+    //       console.log("Counter Incremented");
+    //     });
+    //   },2000);
+    // };
+    // $scope.upCounter = function () {
+    //   setTimeout(function () {
+    //     $scope.counter++;
+    //     console.log("Counter Incremented");
+    //     $scope.$digest();
+    //   },2000);
+    // };
 
-    $scope.$watch(function () {
-      console.log("Digest loop fired!");
-    });
-    // $scope.$watch('onceCounter', function (newValue, oldValue) {
-    //   console.log("onceCounter old value: ", oldValue);
-    //   console.log("onceCounter new value: ", newValue);
-    // });
-    // $scope.$watch('counter', function (newValue, oldValue) {
-    //   console.log("counter old value: ", oldValue);
-    //   console.log("counter new value: ", newValue);
-    // });
   };
 })();
