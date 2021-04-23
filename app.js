@@ -1,33 +1,26 @@
 (function () {
   'use strict';
-  angular.module('CounterApp', [])
-  .controller('CounterController', CounterController);
+  angular.module('BindingApp', [])
+  .controller('BindingController', BindingController);
   
-  CounterController.$inject = ['$scope', '$timeout'];
-  function CounterController($scope, $timeout) {
-    $scope.counter = 0;
+  BindingController.$inject = ['$scope'];
+  function BindingController($scope) {
+    $scope.firstName = "Hello";
+    //$scope.fullName = "";
 
-    $scope.upCounter = function () {
-      $timeout(function () {
-        $scope.counter++;
-        console.log('Counter Incremented');
-      }, 2000);
+    $scope.showNumberOfWatchers = function () {
+      console.log("# of Watchers: ", $scope.$$watchersCount); 
     };
-    // $scope.upCounter = function () {
-    //   setTimeout(function () {
-    //     $scope.$apply(function () {
-    //       $scope.counter++;
-    //       console.log("Counter Incremented");
-    //     });
-    //   },2000);
-    // };
-    // $scope.upCounter = function () {
-    //   setTimeout(function () {
-    //     $scope.counter++;
-    //     console.log("Counter Incremented");
-    //     $scope.$digest();
-    //   },2000);
-    // };
 
+    $scope.setFullName = function() {
+      $scope.fullName = $scope.firstName + " " + 'World!';
+     };
+
+    $scope.logFirstName = function() {
+      console.log("First Name: ", $scope.firstName);
+    };
+    $scope.logFullName = function() {
+      console.log("Full Name: ", $scope.fullName);
+    };
   };
 })();

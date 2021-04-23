@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html ng-app="CounterApp">
+<html ng-app="BindingApp">
   <head>
     <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="app.js"></script>
     <style>body {font-size: 1.2em;}</style>
-    <title>ng-repeat</title>
+    <title>2-way, 1-way, and 1-time binding</title>
   </head>
   <body >
-    <h1>The Digest Cycle</h1>
-    <div ng-controller="CounterController">
-       <div>
-        <button ng-click="upCounter()">Increment Counter</button>
-       </div>
-       <div>
-         Regular counter: {{counter}}
-       </div>
+    <h1>2-way, 1-way, and 1-time bindinge</h1>
+    <div ng-controller="BindingController">
+      <button ng-click="showNumberOfWatchers()">Log # of Watchers</button>
+      <button ng-click="setFullName()">Set Full Name</button><br>
+
+      Full name is: {{ :: fullName }} <br>
+      <button ng-click="logFirstName()">Log First Name</button><br>
+      <button ng-click="logFullName()">Log Full Name</button><br>
+
+      <div>
+        <input type="text" ng-model="firstName">
+      </div>
     </div>
   </body>
 </html>
