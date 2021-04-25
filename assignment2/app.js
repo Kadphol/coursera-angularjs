@@ -49,8 +49,8 @@
     var boughtList = [];
     
     service.boughtItem = function(itemIndex) {
-      var bought = shoppingList.splice(itemIndex, 1);
-      boughtList.push(bought);
+      service.addBoughtList(shoppingList[itemIndex]);
+      shoppingList.splice(itemIndex, 1);
     };
 
     service.getShoppingList = function() {
@@ -60,6 +60,11 @@
     service.getBoughtList = function() {
       return boughtList;
     };
+
+    service.addBoughtList = function(bought) {
+      boughtList.push(bought);
+    };
+
   }
 
 })();
