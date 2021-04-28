@@ -1,150 +1,58 @@
 (function () {
   'use strict';
   
-  angular.module('ShoppingListPromiseApp', [])
-  .controller('ShoppingListController', ShoppingListController)
-  .service('ShoppingListService', ShoppingListService)
-  .service('WeightLossFilterService', WeightLossFilterService);
+  angular.module('MenuCategoriesApp', [])
+  .controller('MenuCategoriesController', MenuCategoriesController)
+  .service('MenuCategoriesService', MenuCategoriesService)
+  .constant('ApiBasePath', 'http://davids-restaurant.herokuapp.com');
   
-  ShoppingListController.$inject = ['ShoppingListService'];
-  function ShoppingListController(ShoppingListService) {
-    var list = this;
-  
-    list.items = ShoppingListService.getItems();
-  
-    list.itemName = "";
-    list.itemQuantity = "";
-  
-    list.addItem = function () {
-      ShoppingListService.addItem(list.itemName, list.itemQuantity);
-    };
-  
-    list.removeItem = function (itemIndex) {
-      ShoppingListService.removeItem(itemIndex);
-    };
-  }
-  
-  
-  ShoppingListService.$inject = ['$q', 'WeightLossFilterService'];
-  function ShoppingListService($q, WeightLossFilterService) {
-    var service = this;
-  
-    // List of shopping items
-    var items = [];
-  
-    // service.addItem = function (name, quantity) {
-    //   var promise = WeightLossFilterService.checkName(name);
-    
-    //   promise.then(function (response) {
-    //     var nextPromise = WeightLossFilterService.checkQuantity(quantity);
-    
-    //     nextPromise.then(function (result) {
-    //       var item = {
-    //         name: name,
-    //         quantity: quantity
-    //       };
-    //       items.push(item);
-    //     }, function (errorResponse) {
-    //       console.log(errorResponse.message);
-    //     });
-    //   }, function (errorResponse) {
-    //     console.log(errorResponse.message);
-    //   });
-    // };
-  
-  
-    // service.addItem = function (name, quantity) {
-    //   var promise = WeightLossFilterService.checkName(name);
-    
-    //   promise
-    //   .then(function (response) {
-    //     return WeightLossFilterService.checkQuantity(quantity);
-    //   })
-    //   .then(function (response) {
-    //     var item = {
-    //       name: name,
-    //       quantity: quantity
-    //     };
-    //     items.push(item);
-    //   })
-    //   .catch(function (errorResponse) {
-    //     console.log(errorResponse.message);
-    //   });
-    // };
-  
-  
-    service.addItem = function (name, quantity) {
-      var namePromise = WeightLossFilterService.checkName(name);
-      var quantityPromise = WeightLossFilterService.checkQuantity(quantity);
-  
-      $q.all([namePromise, quantityPromise]).
-      then(function (response) {
-        var item = {
-          name: name,
-          quantity: quantity
-        };
-        items.push(item);
+  MenuCategoriesController.$inject = ['MenuCategoriesService'];
+  function MenuCategoriesController(MenuCategoriesService) {
+    var menu = this;
+
+    var promise = MenuCategoriesService.getMenuCategories();
+
+    promise.then(function (response) {
+      menu.categories = response.data;
+    })
+    .catch(function (error) {
+      console.log("Something went wrong");
+    });
+
+    menu.logMenuItems = function (shortName) {
+      var promise = MenuCategoriesService.getMenuForCategory(shortName);
+
+      promise.then(function (response) {
+        console.log(response.data);
       })
-      .catch(function (errorResponse) {
-        console.log(errorResponse.message);
+      .catch(function (error) {
+        console.log(error);
       });
     };
+  };
   
-    service.removeItem = function (itemIndex) {
-      items.splice(itemIndex, 1);
-    };
-  
-    service.getItems = function () {
-      return items;
-    };
-  }
-  
-  
-  WeightLossFilterService.$inject = ['$q', '$timeout'];
-  function WeightLossFilterService($q, $timeout) {
+  MenuCategoriesService.$inject = ['$http', 'ApiBasePath']
+  function MenuCategoriesService($http, ApiBasePath) {
     var service = this;
-  
-    service.checkName = function (name) {
-      var deferred = $q.defer();
-  
-      var result = {
-        message: ""
-      };
-  
-      $timeout(function () {
-        // Check for cookies
-        if (name.toLowerCase().indexOf('cookie') === -1) {
-          deferred.resolve(result)
-        }
-        else {
-          result.message = "Stay away from cookies, Yaakov!";
-          deferred.reject(result);
-        }
-      }, 3000);
-  
-      return deferred.promise;
+
+    service.getMenuCategories = function () {
+      var response = $http({
+        method: 'GET',
+        url: (ApiBasePath + '/categories.json')
+      });
+      return response;
     };
-  
-  
-    service.checkQuantity = function (quantity) {
-      var deferred = $q.defer();
-      var result = {
-        message: ""
-      };
-  
-      $timeout(function () {
-        // Check for too many boxes
-        if (quantity < 6) {
-          deferred.resolve(result);
+
+    service.getMenuForCategory = function(shortName) {
+      var response = $http({
+        method: 'GET',
+        url: (ApiBasePath + '/menu_items.json'),
+        params: {
+          category: shortName
         }
-        else {
-          result.message = "That's too much, Yaakov!";
-          deferred.reject(result);
-        }
-      }, 1000);
-  
-      return deferred.promise;
+      });
+      return response;
     };
-  }
+  };
   
-  })();
+})();
