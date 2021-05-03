@@ -20,9 +20,12 @@
     </div>
     <div class="col-md-8"></div>
 
+    <!-- bonus loader-->
+    <items-loader-indicators></items-loader-indicators>
+
     <!-- found-items should be implemented as a component -->
     <found-items items="narrow.found" on-remove="narrow.removeItem(index)" ng-if="narrow.found.length != 0"></found-items>
-    <div class="alert alert-danger row col-md-12 mx-auto" ng-if="narrow.found.length == 0">
+    <div class="alert alert-danger row col-md-12 mx-auto" ng-if="narrow.nothing">
       <strong>Nothing found</strong>
     </div>
   </div>
