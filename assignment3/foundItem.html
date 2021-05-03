@@ -4,7 +4,7 @@
       <th>Short Name</th>
       <th>Name</th>
       <th>Description</th>
-      <th class="nosort">Delete</th>
+      <th class="nosort"></th>
     </tr>
   </thead>
   <tbody ng-repeat="item in items">
@@ -13,7 +13,7 @@
       <td>{{item.name}}</td>
       <td>{{item.description}}</td>
       <td>
-        <button ng-click="onRemove({index: $index})" class="btn btn-danger btn-small">Don't want this one!</button>
+        <button ng-click="onRemove({index: $index})" class="btn btn-warning btn-small">Don't want this one!</button>
       </td>
     </tr>
   </tbody>
