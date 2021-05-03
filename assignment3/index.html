@@ -4,6 +4,7 @@
     <title>Narrow Down Your Menu Choice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
   </head>
@@ -11,15 +12,19 @@
    <div class="container" ng-controller="NarrowItDownController as narrow">
     <h1>Narrow Down Your Chinese Menu Choice</h1>
 
-    <div class="form-group">
-      <input type="text" placeholder="search term" class="form-control">
+    <div class="form-group col-md-3">
+      <input type="text" placeholder="search term" class="form-control" ng-model="narrow.searchTerm">
     </div>
-    <div class="form-group narrow-button">
-      <button class="btn btn-primary">Narrow It Down For Me!</button>
+    <div class="form-group narrow-button col-md-3">
+      <button class="btn btn-primary" ng-click="narrow.getMatchedMenuItems();">Narrow It Down For Me!</button>
     </div>
+    <div class="col-md-8"></div>
 
     <!-- found-items should be implemented as a component -->
-    <found-items found-items="...." on-remove="...."></found-items>
+    <found-items items="narrow.found" on-remove="narrow.removeItem(index)" ng-if="narrow.found.length != 0"></found-items>
+    <div class="alert alert-warning row col-md-11 mx-auto" ng-if="narrow.found.length == 0">
+      <strong>Nothing found</strong>
+    </div>
   </div>
 
 </body>
