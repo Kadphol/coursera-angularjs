@@ -1,0 +1,8 @@
+<div>
+  <div class="page-header">
+    <h1>Menu Categories</h1>
+  </div>
+  <div class="btn-group-vertical">
+    <button class="btn btn-success m-auto" ng-repeat="cat in catCtrl.categories" ui-sref="items({categoryShortName: cat.short_name, categoryName: cat.name})">{{ cat.name }}</button>
+  </div>
+</div>
