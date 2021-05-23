@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="alert alert-danger text-center" ng-if="!myCtrl.isSignedUp">
+    <h2>Not Signed Up yet. <a ui-sref="public.signup"><strong>Sign Up Now!</strong></a></h2>
+  </div>
+  <div ng-if="myCtrl.isSignedUp">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <h3 class="list-group-item-heading text-info">Profile</h3>
+      </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading text-muted">First Name:</h4>
+        <span class="list-group-item-text text-info">{{myCtrl.user.firstName}}</span>
+      </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading text-muted">Last Name:</h4>
+        <span class="list-group-item-text text-info">{{myCtrl.user.lastName}}</span>
+      </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading text-muted">Email Address:</h4>
+        <span class="list-group-item-text text-info">{{myCtrl.user.email}}</span>
+      </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading text-muted">Phone Number:</h4>
+        <span class="list-group-item-text text-info">{{myCtrl.user.phoneNum}}</span>
+      </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading text-muted">Favourite Menu:</h4>
+        <span class="list-group-item-text text-info">{{myCtrl.user.menuItem.name}} : {{myCtrl.user.menuItem.description}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
