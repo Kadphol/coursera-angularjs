@@ -5,13 +5,14 @@
     .module('public')
     .controller('MyInfoController', MyInfoController);
 
-  MyInfoController.$inject = ['SessionStorage'];
+  MyInfoController.$inject = ['SessionStorage', 'ApiPath'];
 
-  function MyInfoController(SessionStorage) {
+  function MyInfoController(SessionStorage, ApiPath) {
     var myCtrl = this;
 
     myCtrl.user = SessionStorage.getObject('user', '{}');
     myCtrl.notSignedUp = angular.equals({}, myCtrl.user);
+    myCtrl.apipath = ApiPath;
     console.log(myCtrl.notSignedUp);
   }
 })();

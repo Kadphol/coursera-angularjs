@@ -26,6 +26,7 @@
       <li class="list-group-item">
         <h4 class="list-group-item-heading text-muted">Favourite Menu:</h4>
         <span class="list-group-item-text text-info">{{myCtrl.user.menuItem.name}} : {{myCtrl.user.menuItem.description}}</span>
+        <img class="img-responsive" width="250" height="150" ng-src="{{ myCtrl.apipath }}/images/{{ myCtrl.user.menuItem.short_name }}.jpg" alt="{{ myCtrl.user.menuItem.name}}" />
       </li>
     </ul>
   </div>
