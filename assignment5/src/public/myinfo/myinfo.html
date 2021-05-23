@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="alert alert-danger text-center" ng-if="!myCtrl.isSignedUp">
+  <div class="alert alert-danger text-center" ng-show="myCtrl.notSignedUp">
     <h2>Not Signed Up yet. <a ui-sref="public.signup"><strong>Sign Up Now!</strong></a></h2>
   </div>
-  <div ng-if="myCtrl.isSignedUp">
+  <div ng-show="!myCtrl.notSignedUp">
     <ul class="list-group">
       <li class="list-group-item">
         <h3 class="list-group-item-heading text-info">Profile</h3>

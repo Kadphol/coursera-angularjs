@@ -12,10 +12,6 @@
 
     signupCtrl.user = {};
     signupCtrl.infoSaved = false;
-    if(SessionStorage.getObject('user', '{}') !== {}) {
-      signupCtrl.infoSaved = true;
-    }
-    console.log(signupCtrl.infoSaved);
     signupCtrl.validMenuNumber = false;
 
     signupCtrl.checkMenuNumber = function () {

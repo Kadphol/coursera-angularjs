@@ -11,11 +11,7 @@
     var myCtrl = this;
 
     myCtrl.user = SessionStorage.getObject('user', '{}');
-    if(myCtrl.user !== {}) {
-      myCtrl.isSignedUp = true;
-    } else {
-      myCtrl.isSignedUp = false;
-    }
-    console.log(myCtrl.isSignedUp);
+    myCtrl.notSignedUp = angular.equals({}, myCtrl.user);
+    console.log(myCtrl.notSignedUp);
   }
 })();
